@@ -40,7 +40,7 @@ var draw = function () {
 };
 
 var mousePressed = function () {
-
+  grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)].clicked = true;
 };
 
 var checkGrid = function (grid) {
