@@ -9,9 +9,13 @@ var cellsClicked;
 
 var setup = function () {
   // start Pure Data
-  $.get('patter-synth.pd', function(patchStr) {
+  $.get('../patter-synth.pd', function(patchStr) {
+    console.log("started");
     patch = Pd.loadPatch(patchStr);
+    console.log("started2");
     Pd.start();
+    console.log("started3");
+
   });
 
   bg = color(48, 76, 69);
