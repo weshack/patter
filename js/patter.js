@@ -3,7 +3,7 @@ var h = 640;
 var gridSize = 15;
 var w = h / gridSize;
 
-var colors, grid = [];
+var bg, colors, grid = [];
 
 var setup = function () {
   // start Pure Data
@@ -12,25 +12,27 @@ var setup = function () {
     Pd.start();
   });
 
+  bg = color(48, 76, 69);
   // start graphics
-  colors = [color(0,0,255), color(0,255,0), color(255,0,0)];
+  colors = [color(242, 227, 148), color(242, 174, 114), color(217, 100, 89), color(140, 70, 70)];
 
   for (var i = 0; i < gridSize; i++) {
     grid[i] = [];
     for (var j = 0; j < gridSize; j++) {
-      grid[i][j] = {clicked:false, color: color(0,0,0)};
+      grid[i][j] = {clicked:false, color: color(88, 140, 126)};
     }
   }
   createCanvas(h, h);
   stroke(0);
   fill(150);
+  smooth();
 };
 
 // Drawer function that continuously loops
 var draw = function () {
-  background(color(255,255,255));
+  background(bg);
 
-  stroke(200);
+  stroke(bg);
   for (var i = 0; i < gridSize; i++) {
     for (var j = 0; j < gridSize; j++) {
       fill(grid[i][j].clicked ? grid[i][j].color : 255);
@@ -40,7 +42,8 @@ var draw = function () {
 };
 
 var mousePressed = function () {
-  grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)].clicked = true;
+  var cell = grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)];
+  cell.clicked = true;
 };
 
 var checkGrid = function (grid) {
@@ -145,7 +148,7 @@ function isShape5(x, y) {
 
 var drawColor = function (x, y) {
   if (isShape0(x,y)) {
-    // 
+    //
   }
   else if (isShape1(x,y)) {
     //
