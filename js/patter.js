@@ -9,19 +9,20 @@ var cellsClicked;
 
 var setup = function () {
   // start Pure Data
-  $.get('patter-synth.pd', function(patchStr) {
+  $.get('../patter-synth.pd', function(patchStr) {
     patch = Pd.loadPatch(patchStr);
     Pd.start();
   });
 
   bg = color(48, 76, 69);
+  def = color(88, 140, 126)
   // start graphics
   colors = [color(242, 227, 148), color(242, 174, 114), color(217, 100, 89), color(140, 70, 70)];
 
   for (var i = 0; i < gridSize; i++) {
     grid[i] = [];
     for (var j = 0; j < gridSize; j++) {
-      grid[i][j] = {clicked:false, color: color(88, 140, 126)};
+      grid[i][j] = {clicked:false, color: def};
     }
   }
   createCanvas(h, h);
@@ -53,7 +54,12 @@ var randomColor = function () {
 
 var assignColorToPairs = function (pairs, color) {
   pairs.forEach(function (pair) {
-    grid[pair[0]][pair[1]].color = color;
+    var cell = grid[pair[0]][pair[1]];
+    if(cell.color != def) {
+      grid[pair[0]][pair[1]].color = lerpColor(cell.color, color, 0.5);
+    } else {
+      grid[pair[0]][pair[1]].color = color;
+    }
   });
 };
 
