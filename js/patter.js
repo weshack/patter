@@ -45,14 +45,21 @@ var draw = function () {
 };
 
 var mousePressed = function () {
-  grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)].clicked = true;
+  adjX = Math.floor(mouseX/w);
+  adjY = Math.floor(mouseY/w);
+
+  grid[adjX][adjY].clicked = true;
+
+  if (isShape5(adjX,adjY)) {
+    grid[adjX][adjY].color = colors[2];
+    grid[adjX][adjY-1].color = colors[2];
+    grid[adjX][adjY+1].color = colors[2];
+    grid[adjX-1][adjY].color = colors[2];
+    grid[adjX+1][adjY].color = colors[2];
+  }
+ 
   cellsClicked++;
   Pd.send('n',[cellsClicked]);
-};
-
-var checkGrid = function (grid) {
-  console.log(grid);
-  return;
 };
 
 /*
