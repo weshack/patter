@@ -5,6 +5,8 @@ var w = h / gridSize;
 
 var colors, grid = [];
 
+var cellsClicked;
+
 var setup = function () {
   // start Pure Data
   $.get('patter-synth.pd', function(patchStr) {
@@ -24,6 +26,7 @@ var setup = function () {
   createCanvas(h, h);
   stroke(0);
   fill(150);
+  cellsClicked = 0;
 };
 
 // Drawer function that continuously loops
@@ -41,6 +44,8 @@ var draw = function () {
 
 var mousePressed = function () {
   grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)].clicked = true;
+  cellsClicked++;
+  Pd.send('n',[cellsClicked]);
 };
 
 var checkGrid = function (grid) {
