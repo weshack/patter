@@ -10,7 +10,6 @@ var cellsClicked;
 var setup = function () {
   // start Pure Data
   $.get('../patter-synth.pd', function(patchStr) {
-    console.log("started");
     patch = Pd.loadPatch(patchStr);
     console.log("started2");
     Pd.start();
@@ -19,13 +18,14 @@ var setup = function () {
   });
 
   bg = color(48, 76, 69);
+  def = color(88, 140, 126)
   // start graphics
   colors = [color(242, 227, 148), color(242, 174, 114), color(217, 100, 89), color(140, 70, 70)];
 
   for (var i = 0; i < gridSize; i++) {
     grid[i] = [];
     for (var j = 0; j < gridSize; j++) {
-      grid[i][j] = {clicked:false, color: color(88, 140, 126)};
+      grid[i][j] = {clicked:false, color: def};
     }
   }
   createCanvas(h, h);
@@ -48,16 +48,39 @@ var draw = function () {
   }
 };
 
+
+var randomColor = function () {
+  var c1 = colors[Math.floor(Math.random()*colors.length)];
+  var c2 = colors[Math.floor(Math.random()*colors.length)];
+  return lerpColor(c1, c2, Math.random());
+};
+
+var assignColorToPairs = function (pairs, color) {
+  pairs.forEach(function (pair) {
+    var cell = grid[pair[0]][pair[1]];
+    if(cell.color != def) {
+      grid[pair[0]][pair[1]].color = lerpColor(cell.color, color, 0.5);
+    } else {
+      grid[pair[0]][pair[1]].color = color;
+    }
+  });
+};
+
 var mousePressed = function () {
-  grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)].clicked = true;
+  adjX = Math.floor(mouseX/w);
+  adjY = Math.floor(mouseY/w);
+
+
+  grid[adjX][adjY].clicked = true;
+
+  if (isShape5(adjX, adjY)) {
+    assignColorToPairs([[adjX, adjY], [adjX, adjY-1], [adjX, adjY+1],
+                        [adjX-1, adjY], [adjX+1, adjY]], randomColor());
+  }
+
   cellsClicked++;
   Pd.send('n',[cellsClicked]);
   console.log("clicked");
-};
-
-var checkGrid = function (grid) {
-  console.log(grid);
-  return;
 };
 
 /*
