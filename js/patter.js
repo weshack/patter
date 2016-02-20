@@ -1,11 +1,9 @@
 var patch;
 var h = 640;
-var rows = columns = 15;
-var w;
+var gridSize = 15;
+var w = h / gridSize;
 
-var colors = ["black", "blue", "green", "red", "yellow"];
-
-var emptyGrid = new Array(15).fill(new Array(15).fill({clicked : false, color : colors[0]}));
+var colors, grid = [];
 
 var setup = function () {
   // start Pure Data
@@ -13,9 +11,16 @@ var setup = function () {
     patch = Pd.loadPatch(patchStr);
     Pd.start();
   });
-  w = 640/rows;
 
   // start graphics
+  colors = [color(0,0,255), color(0,255,0), color(255,0,0)];
+
+  for (var i = 0; i < gridSize; i++) {
+    grid[i] = [];
+    for (var j = 0; j < gridSize; j++) {
+      grid[i][j] = {clicked:false, color: color(0,0,0)};
+    }
+  }
   createCanvas(h, h);
   stroke(0);
   fill(150);
@@ -23,13 +28,12 @@ var setup = function () {
 
 // Drawer function that continuously loops
 var draw = function () {
-  background(255);
-  // rect(50,50,75,100);
-  ellipse(mouseX, mouseY, 20, 20);
+  background(color(255,255,255));
 
-  for (var i = 0; i < columns; i++) {
-    for (var j = 0; j < rows; j++) {
-      stroke(0);
+  stroke(200);
+  for (var i = 0; i < gridSize; i++) {
+    for (var j = 0; j < gridSize; j++) {
+      fill(grid[i][j].clicked ? grid[i][j].color : 255);
       rect(i*w, j*w, w-1, w-1);
     }
   }
