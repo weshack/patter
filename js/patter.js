@@ -5,6 +5,8 @@ var w = h / gridSize;
 
 var bg, colors, grid = [];
 
+var cellsClicked;
+
 var setup = function () {
   // start Pure Data
   $.get('patter-synth.pd', function(patchStr) {
@@ -26,6 +28,7 @@ var setup = function () {
   stroke(0);
   fill(150);
   smooth();
+  cellsClicked = 0;
 };
 
 // Drawer function that continuously loops
@@ -42,14 +45,21 @@ var draw = function () {
 };
 
 var mousePressed = function () {
-  var cell = grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)];
-  cell.clicked = true;
+  grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)].clicked = true;
+  cellsClicked++;
+  Pd.send('n',[cellsClicked]);
 };
 
 var checkGrid = function (grid) {
   console.log(grid);
   return;
 };
+
+/*
+  |*|*|*|
+  |*|*|*|
+  |*|*|*|
+*/
 
 function isShape0(x,y) {
   var cellsToCheck = [
@@ -70,6 +80,12 @@ function isShape0(x,y) {
   return true;
 }
 
+/*
+  |*|*|*|
+  |*| |*|
+  |*|*|*|
+*/
+
 function isShape1(x,y) {
   var cellsToCheck = [
   [x, y+1],
@@ -88,6 +104,12 @@ function isShape1(x,y) {
   return true;
 }
 
+/*
+  |*| |*|
+  | | | |
+  |*| |*|
+*/
+
 function isShape2(x,y) {
   var cellsToCheck = [
   [x, y+2],
@@ -101,6 +123,12 @@ function isShape2(x,y) {
   }
   return true;
 }
+
+/*
+  | |*| |
+  |*| |*|
+  | |*| |
+*/
 
 function isShape3(x,y) {
   var cellsToCheck = [
@@ -116,6 +144,12 @@ function isShape3(x,y) {
   return true;
 }
 
+/*
+  |*| |*|
+  | |*| |
+  |*| |*|
+*/
+
 function isShape4(x,y) {
   var cellsToCheck = [
   [x-1, y-1],
@@ -130,6 +164,12 @@ function isShape4(x,y) {
   }
   return true;
 }
+
+/*
+  | |*| |
+  |*|*|*|
+  | |*| |
+*/
 
 function isShape5(x, y) {
   var cellsToCheck = [
