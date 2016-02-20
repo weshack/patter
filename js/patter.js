@@ -44,20 +44,31 @@ var draw = function () {
   }
 };
 
+
+var randomColor = function () {
+  var c1 = colors[Math.floor(Math.random()*colors.length)];
+  var c2 = colors[Math.floor(Math.random()*colors.length)];
+  return lerpColor(c1, c2, Math.random());
+};
+
+var assignColorToPairs = function (pairs, color) {
+  pairs.forEach(function (pair) {
+    grid[pair.x][pair.y] = color;
+  });
+};
+
 var mousePressed = function () {
   adjX = Math.floor(mouseX/w);
   adjY = Math.floor(mouseY/w);
 
+
   grid[adjX][adjY].clicked = true;
 
-  if (isShape5(adjX,adjY)) {
-    grid[adjX][adjY].color = colors[2];
-    grid[adjX][adjY-1].color = colors[2];
-    grid[adjX][adjY+1].color = colors[2];
-    grid[adjX-1][adjY].color = colors[2];
-    grid[adjX+1][adjY].color = colors[2];
+  if (isShape5(adjX, adjY)) {
+    assignColorToPairs([[adjX, adjY], [adjX, adjY-1], [adjX, adjY+1],
+                        [adjX-1, adjY], [adjX+1, adjY]], randomColor());
   }
- 
+
   cellsClicked++;
   Pd.send('n',[cellsClicked]);
 };
