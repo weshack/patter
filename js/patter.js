@@ -53,7 +53,7 @@ var randomColor = function () {
 
 var assignColorToPairs = function (pairs, color) {
   pairs.forEach(function (pair) {
-    grid[pair.x][pair.y] = color;
+    grid[pair[0]][pair[1]].color = color;
   });
 };
 
