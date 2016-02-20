@@ -62,7 +62,7 @@ function isShape0(x,y) {
   for (var i = 0; i < cellsToCheck.length; i++) {
     tempx = cellsToCheck[i][0];
     tempy = cellsToCheck[i][1];
-    if(!(grid[x][y] == "black" && grid[tempx][tempy] == "black")) return false;
+    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
   }
   return true;
 }
@@ -80,7 +80,7 @@ function isShape1(x,y) {
   for (var i = 0; i < cellsToCheck.length; i++) {
     tempx = cellsToCheck[i][0];
     tempy = cellsToCheck[i][1];
-    if(!(grid[x][y] == "black" && grid[tempx][tempy] == "black")) return false;
+    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
   }
   return true;
 }
@@ -94,7 +94,7 @@ function isShape2(x,y) {
   for (var i = 0; i < cellsToCheck.length; i++) {
     tempx = cellsToCheck[i][0];
     tempy = cellsToCheck[i][1];
-    if(!(grid[x][y] == "black" && grid[tempx][tempy] == "black")) return false;
+    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
   }
   return true;
 }
@@ -108,7 +108,7 @@ function isShape3(x,y) {
   for (var i = 0; i < cellsToCheck.length; i++) {
     tempx = cellsToCheck[i][0];
     tempy = cellsToCheck[i][1];
-    if(!(grid[x][y] == "black" && grid[tempx][tempy] == "black")) return false;
+    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
   }
   return true;
 }
@@ -123,7 +123,7 @@ function isShape4(x,y) {
   for (var i = 0; i < cellsToCheck.length; i++) {
     tempx = cellsToCheck[i][0];
     tempy = cellsToCheck[i][1];
-    if(!(grid[x][y] == "black" && grid[tempx][tempy] == "black")) return false;
+    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
   }
   return true;
 }
@@ -138,7 +138,7 @@ function isShape5(x, y) {
   for (var i = 0; i < cellsToCheck.length; i++) {
     tempx = cellsToCheck[i][0];
     tempy = cellsToCheck[i][1];
-    if(!(grid[x][y] == "black" && grid[tempx][tempy] == "black")) return false;
+    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
   }
   return true;
 }
