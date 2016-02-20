@@ -48,6 +48,7 @@ var mousePressed = function () {
   grid[Math.floor(mouseX/w)][Math.floor(mouseY/w)].clicked = true;
   cellsClicked++;
   Pd.send('n',[cellsClicked]);
+  console.log("clicked");
 };
 
 var checkGrid = function (grid) {
