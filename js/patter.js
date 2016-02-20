@@ -48,6 +48,12 @@ var checkGrid = function (grid) {
   return;
 };
 
+/*
+  |*|*|*|
+  |*|*|*|
+  |*|*|*|
+*/
+
 function isShape0(x,y) {
   var cellsToCheck = [
   [x-1, y-1],
@@ -67,6 +73,12 @@ function isShape0(x,y) {
   return true;
 }
 
+/*
+  |*|*|*|
+  |*| |*|
+  |*|*|*|
+*/
+
 function isShape1(x,y) {
   var cellsToCheck = [
   [x, y+1],
@@ -85,6 +97,12 @@ function isShape1(x,y) {
   return true;
 }
 
+/*
+  |*| |*|
+  | | | |
+  |*| |*|
+*/
+
 function isShape2(x,y) {
   var cellsToCheck = [
   [x, y+2],
@@ -98,6 +116,12 @@ function isShape2(x,y) {
   }
   return true;
 }
+
+/*
+  | |*| |
+  |*| |*|
+  | |*| |
+*/
 
 function isShape3(x,y) {
   var cellsToCheck = [
@@ -113,6 +137,12 @@ function isShape3(x,y) {
   return true;
 }
 
+/*
+  |*| |*|
+  | |*| |
+  |*| |*|
+*/
+
 function isShape4(x,y) {
   var cellsToCheck = [
   [x-1, y-1],
@@ -127,6 +157,12 @@ function isShape4(x,y) {
   }
   return true;
 }
+
+/*
+  | |*| |
+  |*|*|*|
+  | |*| |
+*/
 
 function isShape5(x, y) {
   var cellsToCheck = [
