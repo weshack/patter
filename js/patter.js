@@ -3,6 +3,10 @@ var h = 640;
 var rows = columns = 15;
 var w;
 
+var colors = ["black", "blue", "green", "red", "yellow"];
+
+var emptyGrid = new Array(15).fill(new Array(15).fill({clicked : false, color : colors[0]}));
+
 var setup = function () {
   // start Pure Data
   $.get('patter-synth.pd', function(patchStr) {
