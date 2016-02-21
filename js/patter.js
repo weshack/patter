@@ -16,7 +16,6 @@ var setup = function () {
       // Loading the patch and abstraction
       Pd.registerAbstraction('synth', patchStr);
       // Pd.send(patch.patchId + '-diameter', [20])
-
       patch = Pd.loadPatch(mainStr);
       Pd.start();
     })
