@@ -76,11 +76,8 @@ var mousePressed = function () {
 
 
   grid[adjX][adjY].clicked = true;
-
-  if (isShape5(adjX, adjY)) {
-    assignColorToPairs([[adjX, adjY], [adjX, adjY-1], [adjX, adjY+1],
-                        [adjX-1, adjY], [adjX+1, adjY]], randomColor());
-  }
+  drawShape4(adjX,adjY);
+  drawShape5(adjX,adjY);
 
   cellsClicked++;
   Pd.send('n',[cellsClicked]);
@@ -182,19 +179,54 @@ function isShape3(x,y) {
   |*| |*|
 */
 
-function isShape4(x,y) {
-  var cellsToCheck = [
+function drawShape4(x,y) {
+  isShape4 = true;
+  var cellsToCheck1 = [
   [x-1, y-1],
   [x-1, y+1],
   [x+1, y-1],
   [x+1, y+1]];
+
+  var cellsToCheck2 = [
+  [x+2, y],
+  [x+1, y+1],
+  [x, y+1],
+  [x+2, y+2]];
+
+  var cellsToCheck3 = [
+  [x-2, y-2],
+  [x-1, y-1],
+  [x, y-2],
+  [x-2, y]];
+
+  var cellsToCheck4 = [
+  [x-2, y],
+  [x-1, y+1],
+  [x, y+2],
+  [x-2, y+2]];
+
+  var cellsToCheck5 = [
+  [x+2, y-2],
+  [x, y-2],
+  [x+1, y-1],
+  [x+2, y]];
+
   var tempx,tempy;
-  for (var i = 0; i < cellsToCheck.length; i++) {
-    tempx = cellsToCheck[i][0];
-    tempy = cellsToCheck[i][1];
-    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
+  var checkCells = [cellsToCheck1,cellsToCheck2,cellsToCheck3,cellsToCheck4,cellsToCheck5];
+  var tempx,tempy;
+  for (var i = 0; i < checkCells.length; i++) {
+    for (var j = 0; j < checkCells[i].length; j++) {
+      tempx = checkCells[i][j][0];
+      tempy = checkCells[i][j][1];
+      if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) isShape4 = false;
+    }
+    if (isShape4) {
+      assignColorToPairs([[x, y], [checkCells[i][0][0],checkCells[i][0][1]], [checkCells[i][1][0],checkCells[i][1][1]],
+                        [checkCells[i][2][0],checkCells[i][2][1]], [checkCells[i][3][0],checkCells[i][3][1]]], randomColor());
+      break;
+    }
+    isShape4 = true;
   }
-  return true;
 }
 
 /*
@@ -203,41 +235,51 @@ function isShape4(x,y) {
   | |*| |
 */
 
-function isShape5(x, y) {
-  var cellsToCheck = [
+function drawShape5(x, y) {
+  var isShape5 = true;
+  var cellsToCheck1 = [
   [x, y+1],
   [x, y-1],
   [x+1, y],
   [x-1, y]];
-  var tempx,tempy;
-  for (var i = 0; i < cellsToCheck.length; i++) {
-    tempx = cellsToCheck[i][0];
-    tempy = cellsToCheck[i][1];
-    if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) return false;
-  }
-  return true;
-}
 
-var drawColor = function (x, y) {
-  if (isShape0(x,y)) {
-    //
-  }
-  else if (isShape1(x,y)) {
-    //
-  }
-  else if (isShape2(x,y)) {
-    //
-  }
-  else if (isShape3(x,y)) {
-    //
-  }
-  else if (isShape4(x,y)) {
-    //
-  }
-  else if (isShape5(x,y)) {
-    //
-  }
-  else {
-    //
+  var cellsToCheck2 = [
+  [x+1, y-1],
+  [x+1, y],
+  [x+1, y+1],
+  [x+2, y]];
+
+  var cellsToCheck3 = [
+  [x, y-1],
+  [x+1, y],
+  [x+1, y+1],
+  [x+2, y]];
+
+  var cellsToCheck4 = [
+  [x-1, y-1],
+  [x-1, y],
+  [x-1, y+1],
+  [x-2, y]];
+
+  var cellsToCheck5 = [
+  [x-1, y-1],
+  [x, y],
+  [x+1, y+1],
+  [x, y-2]];
+
+  var checkCells = [cellsToCheck1,cellsToCheck2,cellsToCheck3,cellsToCheck4,cellsToCheck5];
+  var tempx,tempy;
+  for (var i = 0; i < checkCells.length; i++) {
+    for (var j = 0; j < checkCells[i].length; j++) {
+      tempx = checkCells[i][j][0];
+      tempy = checkCells[i][j][1];
+      if(!(grid[x][y].clicked && grid[tempx][tempy].clicked)) isShape5 = false;
+    }
+    if (isShape5) {
+      assignColorToPairs([[x, y], [checkCells[i][0][0],checkCells[i][0][1]], [checkCells[i][1][0],checkCells[i][1][1]],
+                        [checkCells[i][2][0],checkCells[i][2][1]], [checkCells[i][3][0],checkCells[i][3][1]]], randomColor());
+      break;
+    }
+    isShape5 = true;
   }
 }
