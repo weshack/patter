@@ -9,12 +9,17 @@ var cellsClicked;
 
 var setup = function () {
   // start Pure Data
-  $.get('../patter-synth.pd', function(patchStr) {
-    patch = Pd.loadPatch(patchStr);
-    console.log("started2");
-    Pd.start();
-    console.log("started3");
 
+  $.get('../patter-synth.pd', function(mainStr) {
+    $.get('../synth.pd', function(patchStr) {
+
+      // Loading the patch and abstraction
+      Pd.registerAbstraction('synth', patchStr);
+      // Pd.send(patch.patchId + '-diameter', [20])
+
+      patch = Pd.loadPatch(mainStr);
+      Pd.start();
+    })
   });
 
   bg = color(48, 76, 69);
